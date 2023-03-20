@@ -1,7 +1,3 @@
-// TODO: importing @testing-library/jest-dom here fixes type errors but feels bad
-// why cant it just be imported in `setup.tsx` (so that it only needs to be done once)
-import "@testing-library/jest-dom";
-
 import { api } from "../utils/api";
 import { renderWithProviders, trpcMsw } from "./setup";
 import { describe, expect, beforeAll, afterAll, it } from "vitest";
