@@ -1,11 +1,11 @@
-import { createTRPCReact, httpBatchLink } from "@trpc/react-query";
+import { createTRPCReact, httpLink } from "@trpc/react-query";
 import type { AppRouter } from "../server/api/root";
 import superjson from "superjson";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { type ReactElement } from "react";
 import { render, type RenderOptions } from "@testing-library/react";
 import { createTRPCMsw } from "msw-trpc";
-import fetch from 'node-fetch';
+import fetch from "node-fetch";
 
 export const mockedTRPC = createTRPCReact<AppRouter>({
   unstable_overrides: {
@@ -22,7 +22,7 @@ global.fetch = fetch;
 
 const mockedTRPCClient = mockedTRPC.createClient({
   transformer: superjson,
-  links: [httpBatchLink({ url: "http://localhost:3000/api/trpc" })],
+  links: [httpLink({ url: "http://localhost:3000/api/trpc" })],
 });
 
 const mockedQueryClient = new QueryClient();
