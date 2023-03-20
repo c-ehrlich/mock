@@ -11,23 +11,24 @@ import { setupServer } from "msw/node";
 import { screen, waitFor } from "@testing-library/react";
 
 const server = setupServer(
-  trpcMsw.example.hello.query((req, res, ctx) => {
+  trpcMsw.example.hello.query((req, res, ctx) => { 
+    const request = req.getInput()[0].json
     return res(
-      ctx.status(200),
+      ctx.status(200), 
       ctx.data({
-        greeting: `Hello ${req.getinput().text}!`,
+        greeting: `Hello ${request.text}!`,
       })
     );
   })
 );
-
+  
 describe("BestCat", () => {
   beforeAll(() => server.listen());
   afterAll(() => server.close());
   it("should render the result of the query", async () => {
     renderWithProviders(<Greeting />);
     const noData = screen.getByText(/no data/i);
-    expect(noData).toBeVisible();
+    expect(noData).toBeInTheDocument()
     await waitFor(() => {
       const helloWorld = screen.getByText(/Hello world/i);
       expect(helloWorld).toBeVisible();

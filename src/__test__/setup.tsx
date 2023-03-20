@@ -5,8 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { type ReactElement } from "react";
 import { render, type RenderOptions } from "@testing-library/react";
 import { createTRPCMsw } from "msw-trpc";
-
-export const trpcMsw = createTRPCMsw<AppRouter>();
+import fetch from 'node-fetch';
 
 export const mockedTRPC = createTRPCReact<AppRouter>({
   unstable_overrides: {
@@ -27,6 +26,7 @@ const mockedTRPCClient = mockedTRPC.createClient({
 });
 
 const mockedQueryClient = new QueryClient();
+
 export const MockedTRPCProvider = (props: { children: React.ReactNode }) => {
   return (
     <mockedTRPC.Provider
@@ -49,3 +49,10 @@ export const renderWithProviders = (
     ...options,
   });
 };
+
+export const trpcMsw = createTRPCMsw<AppRouter>({
+  transformer: {
+    input: superjson,
+    output: superjson,
+  },
+});
