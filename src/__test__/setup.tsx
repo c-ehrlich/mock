@@ -1,3 +1,4 @@
+import "@testing-library/jest-dom";
 import { createTRPCReact, httpLink } from "@trpc/react-query";
 import type { AppRouter } from "../server/api/root";
 import superjson from "superjson";
