@@ -1,4 +1,3 @@
-import "@testing-library/jest-dom";
 import { createTRPCReact, httpLink } from "@trpc/react-query";
 import type { AppRouter } from "../server/api/root";
 import superjson from "superjson";
@@ -7,6 +6,8 @@ import { type ReactElement } from "react";
 import { render, type RenderOptions } from "@testing-library/react";
 import { createTRPCMsw } from "msw-trpc";
 import fetch from "node-fetch";
+
+// TODO: having to use `msw` v0.x when v1.x exists feels bad
 
 export const mockedTRPC = createTRPCReact<AppRouter>({
   unstable_overrides: {
@@ -19,6 +20,8 @@ export const mockedTRPC = createTRPCReact<AppRouter>({
   },
 });
 
+// TODO: is it possible to patch global fetch without a type error?
+// even better: can we somehow get away with not having to patch it?
 global.fetch = fetch;
 
 const mockedTRPCClient = mockedTRPC.createClient({

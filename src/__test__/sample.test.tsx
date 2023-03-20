@@ -1,3 +1,7 @@
+// TODO: importing @testing-library/jest-dom here fixes type errors but feels bad
+// why cant it just be imported in `setup.tsx` (so that it only needs to be done once)
+import "@testing-library/jest-dom";
+
 import { api } from "../utils/api";
 import { renderWithProviders, trpcMsw } from "./setup";
 import { describe, expect, beforeAll, afterAll, it } from "vitest";
@@ -12,9 +16,13 @@ import { screen, waitFor } from "@testing-library/react";
 
 const server = setupServer(
   trpcMsw.example.hello.query((req, res, ctx) => {
+    // TODO:
+    // either have `getInput` return `json` because it knows our transformer (preferred)
+    // or at least type `getInput` correctly (might require a PR to msw-trpc)
     const request = req.getInput().json;
     return res(
       ctx.status(200),
+      // TODO: fix type issues here
       ctx.data({
         greeting: `Hello ${request.text}!`,
       })
