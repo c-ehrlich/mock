@@ -8,8 +8,6 @@ import { createTRPCMsw } from "msw-trpc";
 import fetch from "node-fetch";
 import "@testing-library/jest-dom";
 
-// TODO: having to use `msw` v0.x when v1.x exists feels bad
-
 export const mockedTRPC = createTRPCReact<AppRouter>({
   unstable_overrides: {
     useMutation: {
