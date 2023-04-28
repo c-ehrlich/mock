@@ -3,10 +3,10 @@ import type { AppRouter } from "../server/api/root";
 import superjson from "superjson";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { type ReactElement } from "react";
-import { render, type RenderOptions } from "@testing-library/react";
 import { createTRPCMsw } from "msw-trpc";
 import fetch from "node-fetch";
 import "@testing-library/jest-dom";
+import { type RenderOptions, render } from "@testing-library/react";
 
 export const mockedTRPC = createTRPCReact<AppRouter>({
   unstable_overrides: {
